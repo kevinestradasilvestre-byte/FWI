@@ -45,4 +45,4 @@ proyecto-web-crisis(FWI)/
 ├── css/
 │   └── estilos.css   
 ├── js/
-│   └── script.js     
+    └── script.js     
