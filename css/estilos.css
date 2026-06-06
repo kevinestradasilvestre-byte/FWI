@@ -1,0 +1,544 @@
+/* ==========================================================================
+   1. IMPORTACIÓN DE FUENTES DE GOOGLE FONTS
+   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@500;700&display=swap');
+
+/* ==========================================================================
+   2. CONFIGURACIÓN BASE Y VARIABLES MUTABLES (CYBER-GLASS)
+   ========================================================================== */
+:root {
+    --bg-main: #010206;
+    --glass-bg: rgba(4, 8, 20, 0.45);
+    
+    /* Variables de paletas interactivas */
+    --theme-color: #00f2fe;
+    --theme-glow: rgba(0, 242, 254, 0.5);
+    
+    /* Estados de alerta */
+    --color-success: #00ff66;
+    --color-warning: #ffaa00;
+    --color-danger: #ff0055;
+    
+    --transition-smooth: 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+
+    /* Coherencia Tipográfica Avanzada */
+    --fuente-titulos: 'Space Grotesk', sans-serif;
+    --fuente-cuerpo: 'Plus Jakarta Sans', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--fuente-cuerpo);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--bg-main);
+    color: #e2e8f0; /* Color de texto legible, no blanco puro agresivo */
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+    padding: 12px;
+}
+
+#bg-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -2;
+    background: radial-gradient(circle at 50% 50%, #030816 0%, #000103 100%);
+}
+
+/* CLASES MUTABLES DE COLOR DE ENTORNO */
+.theme-cyan { --theme-color: #00f2fe; --theme-glow: rgba(0, 242, 254, 0.5); }
+.theme-tomato { --theme-color: #ff6347; --theme-glow: rgba(255, 99, 71, 0.5); }
+.theme-amber { --theme-color: #ffb700; --theme-glow: rgba(255, 183, 0, 0.5); }
+.theme-emerald { --theme-color: #10b981; --theme-glow: rgba(16, 185, 129, 0.5); }
+.theme-crimson { --theme-color: #e6194b; --theme-glow: rgba(230, 25, 75, 0.5); }
+
+/* ==========================================================================
+   3. HERO SECTION & HEADER
+   ========================================================================== */
+header {
+    text-align: center;
+    margin-bottom: 25px;
+    padding: 2.5rem 1rem 1.5rem 1rem;
+}
+
+header h1 {
+    font-family: var(--fuente-titulos);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: clamp(1.8rem, 4vw, 2.5rem); /* Responsivo y dinámico sin romper líneas */
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(0, 242, 254, 0.3), 0 0 20px var(--theme-glow);
+    transition: text-shadow var(--transition-smooth);
+    margin-bottom: 0.5rem;
+}
+
+header p {
+    font-family: var(--fuente-cuerpo);
+    font-weight: 400;
+    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+    color: #94a3b8; /* Menor impacto visual */
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ==========================================================================
+   4. TABS DE NAVEGACIÓN
+   ========================================================================== */
+nav {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.tab-btn {
+    font-family: var(--fuente-titulos);
+    background: rgba(8, 14, 28, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 14px 8px;
+    font-size: clamp(0.8rem, 1.2vw, 0.95rem);
+    font-weight: 700;
+    color: #64748b;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all var(--transition-smooth);
+    text-transform: uppercase;
+    backdrop-filter: blur(8px);
+    letter-spacing: 0.5px;
+}
+
+.tab-btn:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.tab-btn[data-theme="cyan"].active { background: #00f2fe; color: #000; box-shadow: 0 0 20px rgba(0, 242, 254, 0.6); }
+.tab-btn[data-theme="tomato"].active { background: #ff6347; color: #fff; box-shadow: 0 0 20px rgba(255, 99, 71, 0.6); }
+.tab-btn[data-theme="amber"].active { background: #ffb700; color: #000; box-shadow: 0 0 20px rgba(255, 183, 0, 0.6); }
+.tab-btn[data-theme="emerald"].active { background: #10b981; color: #fff; box-shadow: 0 0 20px rgba(16, 185, 129, 0.6); }
+.tab-btn[data-theme="crimson"].active { background: #e6194b; color: #fff; box-shadow: 0 0 20px rgba(230, 25, 75, 0.6); }
+
+nav .tab-btn:last-child { grid-column: span 2; }
+
+/* ==========================================================================
+   5. CONTENEDOR PRINCIPAL GLASS
+   ========================================================================== */
+main {
+    max-width: 1140px;
+    margin: 0 auto;
+    background: var(--glass-bg);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8);
+    transition: border var(--transition-smooth);
+}
+
+.tab-content { display: none; }
+.tab-content.active { display: block; animation: viewFade 0.4s ease-out; }
+
+@keyframes viewFade {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+    font-family: var(--fuente-titulos);
+    font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+    color: #fff;
+    border-left: 4px solid var(--theme-color);
+    padding-left: 12px;
+    margin-bottom: 20px;
+    transition: border var(--transition-smooth);
+    letter-spacing: 0.5px;
+}
+
+/* ACORDEONES INTERNOS */
+.theory-container {
+    background: rgba(2, 4, 10, 0.4);
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 25px;
+}
+
+details {
+    margin-bottom: 6px;
+    background: rgba(255, 255, 255, 0.01);
+    border-radius: 8px;
+}
+
+summary {
+    font-family: var(--fuente-titulos);
+    padding: 12px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--theme-color);
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+.details-content { padding: 0 12px 12px 12px; font-size: 0.95rem; color: #cbd5e1; }
+
+.example-badge {
+    margin-top: 10px;
+    background: rgba(255, 255, 255, 0.02);
+    border-left: 3px solid var(--theme-color);
+    padding: 12px;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.85rem;
+}
+
+/* ==========================================================================
+   6. FORMULARIOS Y HOJAS DE ENTRADA
+   ========================================================================== */
+.card-wrapper {
+    background: rgba(2, 5, 12, 0.8);
+    padding: 22px;
+    border-radius: 12px;
+    border-top: 3px solid var(--theme-color);
+    transition: border var(--transition-smooth);
+}
+
+.sim-form { display: flex; flex-direction: column; gap: 14px; }
+.form-group { display: flex; flex-direction: column; gap: 5px; }
+.form-group label { font-size: 0.8rem; font-weight: 700; color: #94a3b8; }
+
+.form-group input {
+    font-family: var(--fuente-cuerpo);
+    padding: 12px;
+    background: #040712;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    color: #fff;
+    outline: none;
+    font-size: 0.95rem;
+    transition: all 0.25s;
+}
+
+.form-group input:focus {
+    border-color: var(--theme-color);
+    box-shadow: 0 0 10px var(--theme-glow);
+}
+
+/* BOTONES DE ACCIÓN */
+.form-actions { display: flex; gap: 10px; }
+
+button.btn-calc {
+    font-family: var(--fuente-titulos);
+    background: var(--theme-color);
+    color: #000;
+    padding: 14px;
+    font-size: 0.85rem;
+    font-weight: 800;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-transform: uppercase;
+    flex: 1.3;
+    transition: all var(--transition-smooth);
+}
+
+button.btn-calc:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 15px var(--theme-glow);
+}
+
+button.btn-clear {
+    font-family: var(--fuente-titulos);
+    background: transparent;
+    color: #64748b;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    cursor: pointer;
+    flex: 0.7;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+/* ==========================================================================
+   7. PANEL DE RESULTADOS E INDICADORES (CHARTS CSS)
+   ========================================================================== */
+.result-card {
+    background: rgba(2, 4, 10, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 25px;
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.result-card h3 { 
+    font-family: var(--fuente-titulos);
+    font-size: 1.1rem; 
+    margin-bottom: 12px; 
+    text-transform: uppercase; 
+    color: #fff; 
+}
+
+.result-card p, .alerta-texto, .resultado-valor, .datos-prueba-rapida { 
+    font-family: var(--fuente-cuerpo);
+    font-size: 0.95rem; 
+    margin-bottom: 6px; 
+    color: #cbd5e1; 
+}
+
+.result-card .placeholder-text { color: #475569; text-align: center; font-style: italic; }
+
+.metric-progress-container {
+    background: #090e1a;
+    border-radius: 20px;
+    height: 10px;
+    width: 100%;
+    margin: 12px 0;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.metric-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: var(--theme-color);
+    box-shadow: 0 0 10px var(--theme-glow);
+    border-radius: 20px;
+    transition: width 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.badge {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: 800;
+    font-size: 0.8rem;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.result-card.success { border-color: var(--color-success); }
+.badge.success { background: rgba(0, 255, 102, 0.05); color: var(--color-success); border: 1px solid var(--color-success); }
+
+.result-card.warning { border-color: var(--color-warning); }
+.badge.warning { background: rgba(255, 170, 0, 0.05); color: var(--color-warning); border: 1px solid var(--color-warning); }
+
+.result-card.danger { border-color: var(--color-danger); }
+.badge.danger { background: rgba(255, 0, 85, 0.05); color: var(--color-danger); border: 1px solid var(--color-danger); }
+
+/* ==========================================================================
+   8. NUEVO ENTORNO: TERMINAL DE CONTROL (ESTILO MACOS INTERFAZ)
+   ========================================================================== */
+.code-inspector-container {
+    margin-top: 25px;
+    background: rgba(4, 7, 18, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.6);
+}
+
+.code-details {
+    background: transparent;
+    margin-bottom: 0;
+    border-radius: 0;
+}
+
+.code-summary {
+    font-family: var(--fuente-titulos);
+    padding: 14px 18px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #94a3b8;
+    background: rgba(255, 255, 255, 0.02);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+    user-select: none;
+    transition: color 0.2s;
+}
+
+.code-summary:hover { color: var(--theme-color); }
+.code-summary::after {
+    content: "▼";
+    font-size: 0.65rem;
+    margin-left: auto;
+    color: #475569;
+    transition: transform 0.3s;
+}
+
+.code-details[open] .code-summary::after {
+    transform: rotate(-180deg);
+    color: var(--theme-color);
+}
+
+.code-content {
+    padding: 0; /* Quitamos padding externo para pegar la barra de la ventana a los bordes */
+    background: #1e1e1e; /* Color de fondo oficial gris oscuro de VS Code */
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Componentes agregados de la barra superior */
+.code-window-bar {
+    display: flex;
+    align-items: center;
+    background-color: #2d3139; /* Gris oscuro mate superior */
+    padding: 10px 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+    position: relative;
+}
+
+.window-buttons {
+    display: flex;
+    gap: 8px;
+    position: absolute;
+    left: 16px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+}
+.dot-red { background-color: #ff5f56; }
+.dot-yellow { background-color: #ffbd2e; }
+.dot-green { background-color: #27c93f; }
+
+.window-title {
+    font-family: var(--fuente-cuerpo);
+    font-size: 0.85rem;
+    color: #7c828d; /* Color gris claro atenuado */
+    width: 100%;
+    text-align: center;
+}
+
+/* Área interna de renderizado del código */
+.code-content pre {
+    margin: 0;
+    padding: 20px; /* Desplazamos el padding adentro para proteger el texto */
+    overflow-x: auto; 
+    white-space: pre;
+    background-color: #1e1e1e; /* Fondo oscuro real del editor VS Code */
+}
+
+.code-content code {
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 0.88rem;
+    color: #d4d4d4; /* Color base por defecto del texto plano en VS Code */
+    line-height: 1.6;
+    display: block;
+}
+
+/* Hojas de estilo sintácticas para emular el renderizado de VS Code */
+.code-content .js-keyword { color: #569cd6; font-weight: bold; }   /* keywords como let, while, if, const */
+.code-content .js-variable { color: #9cdcfe; }                    /* variables locales e identificadores */
+.code-content .js-number { color: #b5cea8; }                      /* valores numéricos e índices */
+.code-content .js-string { color: #ce9178; }                      /* cadenas de texto literales */
+.code-content .js-comment { color: #6a9955; font-style: italic; } /* comentarios de control */
+.code-content .js-operator { color: #d4d4d4; }                    /* operadores relacionales y aritméticos */
+
+/* ==========================================================================
+   9. CASOS DE ESTUDIO CLICKABLES
+   ========================================================================== */
+hr.section-divider { margin: 35px 0; border: 0; border-top: 1px solid rgba(255, 255, 255, 0.06); }
+.cases-subtitle { font-size: 0.85rem; color: #475569; margin-bottom: 15px; }
+.cases-grid { display: flex; flex-direction: column; gap: 12px; }
+
+.case-card {
+    background: rgba(2, 4, 10, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all var(--transition-smooth);
+}
+
+.case-card:hover {
+    border-color: #ffffff;
+    background: rgba(255, 255, 255, 0.02);
+    transform: translateY(-2px);
+}
+
+.case-card-header { padding: 10px; background: rgba(255, 255, 255, 0.02); border-bottom: 1px solid rgba(255, 255, 255, 0.04); }
+.case-card-header h4 { font-family: var(--fuente-titulos); font-size: 0.85rem; color: #fff; }
+.case-card-body { padding: 12px; }
+.case-card-body ul { list-style: none; font-size: 0.82rem; display: flex; flex-wrap: wrap; gap: 8px; color: #94a3b8; }
+
+/* ==========================================================================
+   10. FOOTER & ADAPTABILIDAD RESPONSIVA
+   ========================================================================== */
+footer { margin-top: 40px; padding: 20px 10px; border-top: 1px solid rgba(255, 255, 255, 0.05); text-align: center; }
+.conclusion-text { font-size: 0.88rem; color: #94a3b8; margin-bottom: 10px; }
+.credits { font-size: 0.82rem; color: #475569; }
+.credits strong { color: var(--theme-color); }
+
+@media (max-width: 768px) {
+    p, li, span, label { font-size: 0.9rem; }
+}
+
+@media (min-width: 600px) {
+    body { padding: 20px; }
+    nav { grid-template-columns: repeat(3, 1fr); }
+    nav .tab-btn:last-child { grid-column: span 1; }
+    .cases-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+}
+
+@media (min-width: 900px) {
+    nav { display: flex; justify-content: center; gap: 12px; }
+    .tab-btn { padding: 12px 24px; font-size: 0.85rem; }
+    .grid-container { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 24px; }
+    .cases-grid { grid-template-columns: repeat(5, 1fr); }
+    .case-card-body ul { flex-direction: column; gap: 4px; }
+}
+
+/* 1. Eliminar el marcador por defecto del navegador */
+details summary {
+    list-style: none; /* Chrome, Safari, Edge */
+    cursor: pointer;
+    font-weight: 600;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background 0.2s ease;
+}
+
+/* Ocultar marcador en Firefox */
+details summary::-webkit-details-marker {
+    display: none;
+}
+
+/* 2. Crear el "triangulito" personalizado */
+details summary::after {
+    content: '▶'; /* Triángulo de cerrado */
+    font-size: 0.8em;
+    transition: transform 0.3s ease;
+    color: var(--accent-color, #fff);
+}
+
+/* 3. Rotar el triángulo cuando está abierto */
+details[open] summary::after {
+    transform: rotate(90deg);
+}
+
+/* Estilo para cuando pasas el mouse por encima */
+details summary:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
