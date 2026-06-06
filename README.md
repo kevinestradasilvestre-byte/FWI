@@ -1,14 +1,14 @@
 # ⚡ Simulador Web: Análisis de Contexto y Crisis
 
 ## Descripción del Proyecto
-Este proyecto es una aplicación web interactiva desarrollada para la asignatura de **Programación Web I**. Su objetivo principal es modelar, calcular y visualizar situaciones reales del contexto actual (como abastecimiento, precios y consumo familiar) mediante modelos matemáticos, proporcionando una herramienta educativa para la toma de decisiones[cite: 1].
+Este proyecto es una aplicación web interactiva desarrollada para la asignatura de **Programación Web I**. Su objetivo principal es modelar, calcular y visualizar situaciones reales del contexto actual (como abastecimiento, precios y consumo familiar) mediante modelos matemáticos, proporcionando una herramienta educativa para la toma de decisiones.
 
 ---
 
 ## 🎯 Objetivos
-*   **Estructura:** Desarrollo con HTML5 semántico y organización modular en carpetas (`css/`, `js/`, `img/`)[cite: 1].
-*   **Interactividad:** Uso de JavaScript y manipulación del DOM para cálculos dinámicos y validaciones en tiempo real[cite: 1].
-*   **Diseño:** Interfaz responsiva y adaptativa, diseñada con una paleta de colores coherente y profesional[cite: 1].
+*   **Estructura:** Desarrollo con HTML5 semántico y organización modular en carpetas (`css/`, `js/`, `img/`).
+*   **Interactividad:** Uso de JavaScript y manipulación del DOM para cálculos dinámicos y validaciones en tiempo real.
+*   **Diseño:** Interfaz responsiva y adaptativa, diseñada con una paleta de colores coherente y profesional.
 
 ---
 
@@ -40,10 +40,9 @@ Para verificar el correcto funcionamiento del simulador, puedes utilizar los sig
 
 ## 📂 Estructura del Proyecto
 ```text
-proyecto-web-crisis/
-├── index.html        # Página principal
+proyecto-web-crisis(FWI)/
+├── index.html        
 ├── css/
-│   └── estilos.css   # Estilos globales y responsive
+│   └── estilos.css   
 ├── js/
-│   └── script.js     # Lógica y manipulación del DOM
-└── img/              # Recursos visuales
+│   └── script.js     
